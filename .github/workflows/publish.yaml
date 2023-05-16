@@ -14,18 +14,18 @@ jobs:
     runs-on: ubuntu-latest
     env:
       IMAGE_TITLE: abekrenev-devops-final-task
-      DATE_TAG: ${{ date "+%y-%m-%d-%H.%M" }}
-      TAG: "${{ github.event_name == 'pull_request' && env.DATE_TAG || github.event.release.tag_name }}"
     steps:
       - name: Check out Project
         uses: actions/checkout@v3
 
-      - name: Echo image title
-        run: echo ${{ env.IMAGE_TITLE }}:${{ env.TAG }}
-        shell: bash
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d-%H-%M')"
 
       - name: Build and publish image
         uses: docker/build-push-action@v3 
+        env:
+          TAG: "${{ github.event_name == 'pull_request' && steps.date.outputs.date || github.event.release.tag_name }}"
         with:
           file: ./Dockerfile
           tags: ${{ env.IMAGE_TITLE }}:${{ env.TAG }}
