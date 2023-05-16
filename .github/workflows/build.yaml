@@ -20,7 +20,6 @@ jobs:
       - name: Check out Project
         uses: actions/checkout@v3
 
-      # custom action
       - name: build
         uses: docker/build-push-action@v3
         with:
@@ -28,3 +27,4 @@ jobs:
           dockerfile: ./Dockerfile
           push: false
           tags: ${{ env.IMAGE_TITLE }}:${{ env.TAG }}
+
