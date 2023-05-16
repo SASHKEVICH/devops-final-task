@@ -18,6 +18,5 @@ runs:
   steps:
     - run: |
         docker build -t ${{ inputs.image }} -f ${{ inputs.dockerfile }} ${{ inputs.context }}
-    - run: |
         docker run -it ${{ inputs.image }} test
       shell: bash
