@@ -34,7 +34,7 @@ jobs:
           TAG: "${{ github.event_name == 'pull_request' && steps.date.outputs.date || github.event.release.tag_name }}"
         with:
           file: ./Dockerfile
-          tags: ${{ env.IMAGE_TITLE }}:${{ env.TAG }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_TITLE }}:${{ env.TAG }}
           context: .
           push: true
 
