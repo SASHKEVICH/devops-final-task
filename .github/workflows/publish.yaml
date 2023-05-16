@@ -22,7 +22,7 @@ jobs:
         id: date
         run: echo "::set-output name=date::$(date +'%Y-%m-%d-%H-%M')"
 
-      - name: Build and publish image
+      - name: Building and publishing image
         uses: docker/build-push-action@v3 
         env:
           TAG: "${{ github.event_name == 'pull_request' && steps.date.outputs.date || github.event.release.tag_name }}"
