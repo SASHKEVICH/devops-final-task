@@ -29,7 +29,7 @@ EXPOSE 8000
 COPY sampleapp sampleapp
 COPY sampleproject sampleproject
 
-COPY Container-taskfile.yaml Taskfile.yaml
+COPY Taskfile.container.yaml Taskfile.yaml
 COPY manage.py manage.py
 
 ENTRYPOINT ["task"]
