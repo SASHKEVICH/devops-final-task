@@ -19,8 +19,13 @@ jobs:
       - name: Check out Project
         uses: actions/checkout@v3
 
+      - name: Echo image title
+        run: |
+          echo ${{ env.IMAGE_TITLE }}:${{ env.TAG }}
+        shell: bash
+
       - name: Build and publish image
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v3 
         with:
           file: ./Dockerfile
           tags: ${{ env.IMAGE_TITLE }}:${{ env.TAG }}
