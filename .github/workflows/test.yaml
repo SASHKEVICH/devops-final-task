@@ -23,6 +23,6 @@ jobs:
       - name: test
         uses: ./.github/actions/test_action 
         with:
-          dockerfile: ./Dockerile
+          dockerfile: ./Dockerfile
           image: ${{ env.IMAGE_TITLE }}:${{ env.TAG }}
           context: .
