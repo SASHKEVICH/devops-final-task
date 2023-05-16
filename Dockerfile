@@ -24,21 +24,27 @@ RUN wget https://taskfile.dev/install.sh && \
     PATH="$PATH:/usr/bin/task" && \
     rm ./install.sh
 
+EXPOSE 8000
+
 COPY sampleapp sampleapp
 COPY sampleproject sampleproject
 
 COPY Container-taskfile.yaml Taskfile.yaml
 COPY manage.py manage.py
 
-FROM builder AS tests
-
 ENTRYPOINT ["task"]
+
+FROM builder AS tests
 
 CMD ["test"]
 
+
 FROM builder AS prod
 
-ENTRYPOINT ["task"]
+CMD ["run-prod-server"]
 
-CMD ["run-server"]
+
+FROM builder as dev
+
+CMD ["run-dev-server"]
 
