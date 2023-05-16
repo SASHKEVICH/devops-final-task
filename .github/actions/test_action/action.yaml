@@ -18,5 +18,5 @@ runs:
   steps:
     - run: |
         docker build -t ${{ inputs.image }} -f ${{ inputs.dockerfile }} --target tests ${{ inputs.context }}
-        docker run ${{ inputs.image }} --target tests
+        docker run ${{ inputs.image }} 
       shell: bash
