@@ -11,7 +11,7 @@ services:
       - "4000:8000"
     volumes:
       - db:/opt/app/
-      - ./Container-taskfile.yaml:/opt/app/Taskfile.yaml
+      - ./Taskfile.container.yaml:/opt/app/Taskfile.yaml
     container_name: abekrenev-devops-final-task-prod
 
   migrate:
