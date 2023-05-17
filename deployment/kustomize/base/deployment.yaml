@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: abekrenev-devops-final-task-deployment
+  labels:
+    app: abekrenev-devops-final-task
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: abekrenev-devops-final-task
+  template:
+    metadata:
+      labels:
+        app: abekrenev-devops-final-task
+    spec:
+      # initContainers:
+      #   - name: final-task-migration
+      #     image: sashkevich4/abekrenev-devops-final-task:v1.0.3
+      #     command:
+      #       - task
+      #       - migrate
+      #     volumeMounts:
+      #       - mountPath: ./db.sqlite3
+      #         name: db
+      containers:
+        - name: final-task
+          image: sashkevich4/abekrenev-devops-final-task:v1.0.3
+          command:
+            - /bin/sh
+            - -c
+            - |
+              task migrate
+              task run-prod-server
+          ports:
+            - name: http
+              containerPort: 8000
+              protocol: TCP
+          # volumeMounts:
+          #   - mountPath: ./db.sqlite3
+          #     name: db
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "500Mi"
+              cpu: "1"
+          lifecycle:
+            
+      # volumes:
+      #   - name: db
+      #     emptyDir: {}
+      # nodeSelector:
+      #   topology.kubernetes.io/zone: ru-central1-a
