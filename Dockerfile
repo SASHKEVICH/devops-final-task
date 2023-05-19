@@ -1,4 +1,4 @@
-FROM python:3.11.3-slim AS builder
+FROM python:3.11.3-slim
 WORKDIR /opt/app
 
 RUN apt update && \
@@ -18,33 +18,13 @@ COPY poetry.toml poetry.toml
 
 RUN poetry install
 
-RUN wget https://taskfile.dev/install.sh && \
-    chmod +x install.sh && \
-    sh ./install.sh -b /usr/bin && \
-    PATH="$PATH:/usr/bin/task" && \
-    rm ./install.sh
-
 EXPOSE 8000
+
+COPY entrypoint.sh entrypoint.sh
+RUN chmod u+x entrypoint.sh
 
 COPY sampleapp sampleapp
 COPY sampleproject sampleproject
-
-COPY Taskfile.container.yaml Taskfile.yaml
 COPY manage.py manage.py
 
-ENTRYPOINT ["task"]
-
-FROM builder AS tests
-
-CMD ["test"]
-
-
-FROM builder AS prod
-
-CMD ["run-prod-server"]
-
-
-FROM builder as dev
-
-CMD ["run-dev-server"]
-
+ENTRYPOINT [ "./entrypoint.sh" ]
