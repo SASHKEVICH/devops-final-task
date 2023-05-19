@@ -57,10 +57,10 @@ jobs:
         with:
           name: image
           path: /tmp
-          
+
       - name: Load Docker image
         run: |
-          docker load --input /tmp/myimage.tar
+          docker load --input /tmp/image.tar
           docker run ${{ env.IMAGE_TITLE }}:${{ env.TAG }} test
 
   publish:
