@@ -1,36 +1,27 @@
 version: '3'
 
 env:
+  TITLE: devops-final-task
   TAG:
     sh: date "+%y-%m-%d-%H.%M"
 
 tasks:
   build:
     cmds:
-      - docker build -t devops-final-task:{{.TAG}} --target builder .
-      - echo Success build. name=devops-final-task:{{.TAG}}
+      - docker build -t {{.TITLE}}:{{.TAG}} .
+      - echo Success build. name={{.TITLE}}:{{.TAG}}
 
-  build-tests:
+  test:
     cmds:
-      - docker build -t devops-final-task:{{.TAG}} --target tests .
-      - echo Success tests build. name=devops-final-task:{{.TAG}}
+      - docker run {{.TITLE}}:{{.TAG}} test
 
-  build-prod:
+  run-dev-server:
     cmds:
-      - docker build -t devops-final-task:{{.TAG}} --target prod .
-      - echo Success prod build. name=devops-final-task:{{.TAG}}
+      - docker run {{.TITLE}}:{{.TAG}} runserver
 
-  run-builder:
+  run-prod-server:
     cmds:
-      - docker run -it devops-final-task:{{.TAG}} --target builder 
-
-  run-test:
-    cmds:
-      - docker run -it devops-final-task:{{.TAG}} --target tests
-
-  run-server:
-    cmds:
-      - docker run -it devops-final-task:{{.TAG}} --target prod
+      - docker run -p 8000:8000 {{.TITLE}}:{{.TAG}} gunicorn
 
   run-compose-prod:
     cmds:
