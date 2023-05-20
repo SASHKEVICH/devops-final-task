@@ -9,4 +9,5 @@ images:
 resources:
 - ../../base
 - ingress.yaml
-
+- namespace.yaml
+- certificate.yaml
