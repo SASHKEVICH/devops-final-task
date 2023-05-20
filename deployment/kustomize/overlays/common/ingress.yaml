@@ -15,4 +15,8 @@ spec:
               service:
                 name: abekrenev-devops-final-task-service
                 port:
-                  number: 80
+                  name: http
+  tls:
+    - hosts:
+      - abekrenev.dacdevops.ru
+      secretName: abekrenev-devops-final-task-cert
