@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: abekrenev-devops-final-task-migration-job
+spec:
+  template:
+    spec:
+      containers:
+        - name: migration
+          image: sashkevich4/abekrenev-devops-final-task:v1.1.0
+          args:
+            - migrate
+          envFrom:
+            - secretRef:
+                name: abekrenev-devops-final-task-postgres-secret
+      restartPolicy: Never
+  backoffLimit: 5
