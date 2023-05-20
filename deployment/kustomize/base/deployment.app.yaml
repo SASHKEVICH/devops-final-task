@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: abekrenev-devops-final-task-deployment-app
+  labels:
+    app: abekrenev-devops-final-task
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: abekrenev-devops-final-task
+  template:
+    metadata:
+      labels:
+        app: abekrenev-devops-final-task
+    spec:
+      initContainers:
+        - name: final-task-migrate
+          image: sashkevich4/abekrenev-devops-final-task:v1.1.0
+          args:
+            - migrate
+          envFrom:
+            - secretRef:
+                name: abekrenev-devops-final-task-postgres-secret
+      containers:
+        - name: final-task
+          image: sashkevich4/abekrenev-devops-final-task:v1.1.0
+          args:
+            - gunicorn
+          ports:
+            - name: http
+              containerPort: 8000
+              protocol: TCP
+          envFrom:
+            - secretRef:
+                name: abekrenev-devops-final-task-postgres-secret
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "500Mi"
+              cpu: "1"
+      # nodeSelector:
+      #   topology.kubernetes.io/zone: ru-central1-a
