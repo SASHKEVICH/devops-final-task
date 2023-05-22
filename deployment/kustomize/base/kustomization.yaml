@@ -10,9 +10,7 @@ images:
     newTag: v1.1.0
 
 resources:
-- namespace.yaml
 - service.yaml
 - deployment.app.yaml
 - secret.yaml
-# - job.yaml
 - ./postgres
