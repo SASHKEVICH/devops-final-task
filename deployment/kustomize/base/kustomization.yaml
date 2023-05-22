@@ -4,11 +4,6 @@ kind: Kustomization
 commonLabels:
   app: abekrenev-devops-final-task
 
-images:
-  - name: final-task
-    newName: sashkevich4/abekrenev-devops-final-task
-    newTag: v1.1.0
-
 resources:
 - service.yaml
 - deployment.app.yaml

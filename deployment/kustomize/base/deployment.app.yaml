@@ -16,7 +16,7 @@ spec:
     spec:
       initContainers:
         - name: final-task-migrate
-          image: sashkevich4/abekrenev-devops-final-task:v1.1.0
+          image: final-task-image
           args:
             - migrate
           envFrom:
@@ -24,7 +24,7 @@ spec:
                 name: abekrenev-devops-final-task-postgres-secret
       containers:
         - name: final-task
-          image: sashkevich4/abekrenev-devops-final-task:v1.1.0
+          image: final-task-image
           args:
             - gunicorn
           ports:
@@ -41,5 +41,4 @@ spec:
             limits:
               memory: "500Mi"
               cpu: "1"
-      # nodeSelector:
-      #   topology.kubernetes.io/zone: ru-central1-a
+
