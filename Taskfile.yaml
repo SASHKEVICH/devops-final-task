@@ -29,7 +29,7 @@ tasks:
 
   run-compose-migrate:
     cmds:
-      - docker compose up migrate 
+      - docker compose run migrate 
 
   down:
     cmds:
