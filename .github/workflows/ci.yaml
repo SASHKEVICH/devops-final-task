@@ -14,7 +14,7 @@ on:
 
 env:
   IMAGE_TITLE: abekrenev-devops-final-task
-  TAG: github.ref_name
+  TAG: ${{ github.ref_name }}
 
 jobs:
   build:
